@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<body>
+
+<div id="dialogoverlay"></div>
+<div id="dialogbox">
+  <div>
+    <span id='close' onclick="x()">x</span>
+    <div id="dialogboxhead"></div>
+    <div id="dialogboxbody"></div>
+    <div id="dialogboxfoot"></div>
+
+  </div>
+</div>
+<button onclick="Alert.render('We will let you know, when the item is posted on our website.')">Send</button>
+</body>
+<style>
+#close {
+    float:right;
+    display:inline;
+    width: 20px;
+    padding:1px 5px;
+    background:#ff0000;
+    text-align: center;
+  }
+#dialogoverlay{
+        display: none;
+        opacity: .8;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        background: #d2cdcd;
+        width: 100%;
+        z-index: 10;
+}
+#dialogbox{
+        font-family: 'Open Sans', sans-serif;
+        display: none;
+        position: fixed;
+        background: #000;
+        width:550px;
+        z-index: 10;
+}
+
+#dialogbox > div{ margin:2px; }
+#dialogbox > div > #dialogboxhead{ background: #ADFF2F; padding:1px; color:#000000; }
+#dialogbox > div > #dialogboxbody{ background:#ffffff; padding:20px; border-top: 2px solid black; color:#000000; }
+#dialogbox > div > #dialogboxfoot{ background: #ffffff; text-align:right;}
+</style>
+<script>
+function Send(){
+    this.render = function(dialog){
+    var winW = window.innerWidth;
+    var winH = window.innerHeight;
+    var dialogoverlay = document.getElementById('dialogoverlay');
+        var dialogbox = document.getElementById('dialogbox');
+        dialogoverlay.style.display = "block";
+        dialogoverlay.style.height = winH+"px";
+        dialogbox.style.left = (winW/2) - (550 * .5)+"px";
+        dialogbox.style.top = "100px";
+        dialogbox.style.display = "block";
+        document.getElementById('dialogboxhead').innerHTML = "Thank you for your message";
+        document.getElementById('dialogboxbody').innerHTML = dialog;
+        document.getElementById('dialogboxfoot').innerHTML = '<button onclick="Alert.ok()">Great!</button>';
+    }
+        this.ok = function(){
+                document.getElementById('dialogbox').style.display = "none";
+                document.getElementById('dialogoverlay').style.display = "none";
+        }
+}
+function x (){
+    document.getElementById('dialogbox').style.display = "none";
+    document.getElementById('dialogoverlay').style.display = "none";
+}
+var Alert = new Send();
+</script>
+</html>
